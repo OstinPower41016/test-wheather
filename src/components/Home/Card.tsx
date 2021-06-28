@@ -76,7 +76,7 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
         </div>
       </div>
       <p>
-        <strong>Ощущаеться как:</strong> {cityWeather?.feels_like} &#8451;
+        <strong>Ощущается как:</strong> {cityWeather?.feels_like} &#8451;
       </p>
       <p>
         <strong>Атмосферное давление:</strong> {cityWeather?.pressure} мбар
