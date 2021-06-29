@@ -40,6 +40,9 @@ const InputElement = styled.input`
   background: #e3e3e3;
   width: 100%;
   border-radius: 0.25rem 0 0 0.25rem;
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;
 const ButtonElement = styled.button`
   background: #3c3cce;
@@ -50,9 +53,15 @@ const ButtonElement = styled.button`
     background: #b8b6c3;
     color: black;
   }
+  @media (max-width: 400px) {
+    font-size: 12px;
+  }
 `;
 const SearchElement = styled.div`
   border: 1px solid black;
+  @media (max-width: 600px) {
+    width: 90%;
+  }
 `;
 
 export default Search;

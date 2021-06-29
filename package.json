@@ -1,24 +1,16 @@
 {
   "name": "wheather",
   "version": "0.1.0",
-  "private": true,
+  "homepage": "https://ostinpower41016.github.io/test-wheather/",
   "dependencies": {
     "@craco/craco": "^6.1.2",
     "@reduxjs/toolkit": "^1.6.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/axios": "^0.14.0",
-    "@types/classnames": "^2.3.1",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-icons": "^3.0.0",
-    "@types/react-redux": "^7.1.16",
-    "@types/styled-components": "^5.1.10",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.2.0",
@@ -30,7 +22,8 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build",
     "test": "craco test",
     "eject": "react-scripts eject"
   },
@@ -53,6 +46,15 @@
     ]
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/classnames": "^2.3.1",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-icons": "^3.0.0",
+    "@types/react-redux": "^7.1.16",
+    "@types/styled-components": "^5.1.10",
     "autoprefixer": "^9",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat"

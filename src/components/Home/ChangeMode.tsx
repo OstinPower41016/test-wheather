@@ -9,14 +9,20 @@ const ChangeMode: React.FunctionComponent = () => {
   const onInputHandler = () => dispatch(setStatus());
 
   return (
-    <div className="container mx-auto flex justify-end mt-4">
+    <WrapperElement className="container mx-auto flex justify-end mt-4">
       <LabelElement>
         <InputElement type="checkbox" onClick={onInputHandler} />
         <Switch></Switch>
       </LabelElement>
-    </div>
+    </WrapperElement>
   );
 };
+
+const WrapperElement = styled.div`
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
 
 const LabelElement = styled.label`
   display: inline-block;
