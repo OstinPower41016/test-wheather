@@ -10,6 +10,7 @@ import { setStatusModal, addFavoriteCity, removeFavoriteCity } from "../../store
 interface ICardProps {
   searchText: string;
   className?: string;
+  noClose?: boolean;
 }
 
 type TCityWeather = {
@@ -99,9 +100,11 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
               >
                 <AiFillStar />
               </ButtonElement>
-              <ButtonElement onClick={() => dispatch(setStatusModal())}>
-                <AiOutlineCloseCircle />
-              </ButtonElement>
+              {!props.noClose ? (
+                <ButtonElement onClick={() => dispatch(setStatusModal())}>
+                  <AiOutlineCloseCircle />
+                </ButtonElement>
+              ) : null}
             </div>
           </div>
           <p>
@@ -114,10 +117,9 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
       )}
       {statusError && (
         <CityNotFound className="absolute flex px-4 py-3">
-          <TextCard className="mr-4">По данному поисковому запросу не было найденно ни одного города</TextCard>
-          <IconClose onClick={() => dispatch(setStatusModal())}>
-            <AiOutlineCloseCircle />
-          </IconClose>
+          <TextCard className="mr-4">
+            По данному поисковому запросу не было найденно ни одного города
+          </TextCard>
         </CityNotFound>
       )}
     </>
@@ -135,13 +137,12 @@ const CityNotFound = styled.div`
   background: white;
 `;
 
-const TextCard = styled.div`
-`;
+const TextCard = styled.div``;
 const IconClose = styled.div``;
 
 const CardElement = styled.div`
-  box-shadow: 0 0 3px #b19c9c;
-  background: linear-gradient(135deg, #19506d, #abd0e224);
+  box-shadow: ${(props: TCardElement) => (props.isAbsolute ? "0 0 8px 2px black;" : "")};
+  background: linear-gradient(135deg, #19506d, #abd0e2);
   top: 20%;
   left: 50%;
   transform: ${(props: TCardElement) => (props.isAbsolute ? "translate(-50%)" : "")};

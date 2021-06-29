@@ -15,20 +15,38 @@ const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
   React.useEffect(() => {
     const citiesArr = favoriteCities.trim().split(" ");
 
-
     if (citiesArr[0]) {
-      setCities(citiesArr.map((city) => <Card key={city} className="static" searchText={city} />));
+      setCities(
+        citiesArr.map((city) => <Card key={city} className="static" searchText={city} noClose />),
+      );
     }
   }, [favoriteCities]);
 
   console.log(cities);
 
+  const preInstalledCards = preInstalled.map((city) => (
+    <Card searchText={city} noClose key={city} />
+  ));
+
   return (
     <div className="container mx-auto mt-6">
       <Flex className="flex justify-around flex-wrap">
-        {mode === "Предустановленный"
-          ? preInstalled.map((city) => <Card searchText={city} />)
-          : cities}
+        {/* {mode === "Предустановленный" ? (
+          preInstalled.map((city) => <Card searchText={city} noClose />) ? (
+            !!favoriteCities.trim().length
+          ) ? (
+            { cities }
+          )
+        ) : (
+          <p>Избранных нет</p>
+        )} */}
+        {mode === "Предустановленный" ? (
+          preInstalledCards
+        ) : !!favoriteCities.trim().length ? (
+          cities
+        ) : (
+          <NotFoundFavoriteDate>Избранных нет</NotFoundFavoriteDate>
+        )}
       </Flex>
     </div>
   );
@@ -38,6 +56,13 @@ const Flex = styled.div`
   & > div {
     margin-top: 2rem;
   }
+`;
+
+const NotFoundFavoriteDate = styled.span`
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
 `;
 
 export default FavoriteCards;
