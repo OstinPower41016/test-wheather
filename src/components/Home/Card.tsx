@@ -13,7 +13,7 @@ interface ICardProps {
   noClose?: boolean;
 }
 
-type TCityWeather = {
+interface TCityWeather {
   name: string;
   temp: number;
   feels_like: number;
@@ -21,15 +21,23 @@ type TCityWeather = {
   iconURL: string;
   pressure: number;
   isFavorite: boolean;
-};
+}
+
+interface TButtonElement {
+  isFavorite?: boolean;
+}
+
+interface TCardElement {
+  isAbsolute?: boolean;
+}
 
 const checkFavoriceCity = (city: string) => {
-  return (
-    !!localStorage
+  return Boolean(
+    localStorage
       .getItem("favoriteCities")
       ?.trim()
       .split(" ")
-      .find((val) => val === city) || false
+      .find((val) => val === city),
   );
 };
 
@@ -77,6 +85,8 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
     }
   };
 
+  const onButtonCloseHanlder = () => dispatch(setStatusModal());
+
   return (
     <>
       {!statusError && (
@@ -101,7 +111,7 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
                 <AiFillStar />
               </ButtonElement>
               {!props.noClose ? (
-                <ButtonElement onClick={() => dispatch(setStatusModal())}>
+                <ButtonElement onClick={onButtonCloseHanlder}>
                   <AiOutlineCloseCircle />
                 </ButtonElement>
               ) : null}
@@ -117,17 +127,11 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
       )}
       {statusError && (
         <CityNotFound className="absolute flex px-4 py-3">
-          <TextCard className="mr-4">
-            По данному поисковому запросу не было найденно ни одного города
-          </TextCard>
+          <p className="mr-4">По поисковому запросу не было найденно ни одного города</p>
         </CityNotFound>
       )}
     </>
   );
-};
-
-type TCardElement = {
-  isAbsolute?: boolean;
 };
 
 const CityNotFound = styled.div`
@@ -136,9 +140,6 @@ const CityNotFound = styled.div`
   transform: translate(-50%);
   background: white;
 `;
-
-const TextCard = styled.div``;
-const IconClose = styled.div``;
 
 const CardElement = styled.div`
   box-shadow: ${(props: TCardElement) => (props.isAbsolute ? "0 0 8px 2px black;" : "")};
@@ -149,9 +150,6 @@ const CardElement = styled.div`
   color: #0b0b0b;
 `;
 
-type TButtonElement = {
-  isFavorite?: boolean;
-};
 const ButtonElement = styled.div`
   cursor: pointer;
   color: ${(props: TButtonElement) => (props.isFavorite ? "gold" : "#3e3e3e")};

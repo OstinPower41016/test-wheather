@@ -6,11 +6,14 @@ import { useDispatch } from "react-redux";
 import { setStatusModal, setSearchText } from "../../store/modal/modalSlice";
 import { useAppSelector } from "../../hooks/redux";
 
-interface ISearchProps {}
-
-const Search: React.FunctionComponent<ISearchProps> = (props) => {
+const Search: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const inputValue = useAppSelector((state) => state.modal.searchText);
+
+  const onInputSearchHandler = (e: React.ChangeEvent<HTMLInputElement>) =>
+    dispatch(setSearchText({ searchText: e.target.value }));
+
+  const toggleButtonStatusHandler = () => dispatch(setStatusModal());
 
   return (
     <SearchElement className="flex justify-between container mx-auto rounded w-6/12 mt-4">
@@ -18,13 +21,11 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
         placeholder="Введите город..."
         className="py-2 px-4"
         value={inputValue}
-        onInput={(e: React.ChangeEvent<HTMLInputElement>) =>
-          dispatch(setSearchText({ searchText: e.target.value }))
-        }
+        onInput={(e: React.ChangeEvent<HTMLInputElement>) => onInputSearchHandler(e)}
       />
       <ButtonElement
         className="flex items-center py-2 px-4"
-        onClick={() => dispatch(setStatusModal())}
+        onClick={toggleButtonStatusHandler}
         disabled={inputValue.length <= 2}
       >
         <span className="mr-4">Поиск</span>

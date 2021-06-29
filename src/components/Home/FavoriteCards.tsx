@@ -5,9 +5,7 @@ import preInstalled from "../../pre-installed.json";
 import Card from "./Card";
 import { useAppSelector } from "../../hooks/redux";
 
-interface IFavoriteCardsProps {}
-
-const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
+const FavoriteCards: React.FunctionComponent = () => {
   const favoriteCities = useAppSelector((state) => state.modal.allFavoriteCities);
   const [cities, setCities] = React.useState<JSX.Element[]>([]);
   const mode = useAppSelector((state) => state.mode.mode);
@@ -22,8 +20,6 @@ const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
     }
   }, [favoriteCities]);
 
-  console.log(cities);
-
   const preInstalledCards = preInstalled.map((city) => (
     <Card searchText={city} noClose key={city} />
   ));
@@ -31,15 +27,6 @@ const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
   return (
     <div className="container mx-auto mt-6">
       <Flex className="flex justify-around flex-wrap">
-        {/* {mode === "Предустановленный" ? (
-          preInstalled.map((city) => <Card searchText={city} noClose />) ? (
-            !!favoriteCities.trim().length
-          ) ? (
-            { cities }
-          )
-        ) : (
-          <p>Избранных нет</p>
-        )} */}
         {mode === "Предустановленный" ? (
           preInstalledCards
         ) : !!favoriteCities.trim().length ? (

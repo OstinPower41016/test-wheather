@@ -6,30 +6,26 @@ import { setStatusModal } from "../../store/modal/modalSlice";
 import { useAppSelector } from "../../hooks/redux";
 import Card from "./Card";
 
-interface IModalProps {}
-
-const Modal: React.FunctionComponent<IModalProps> = (props) => {
+const Modal: React.FunctionComponent = () => {
   const { isOpen, searchText } = useAppSelector((state) => state.modal);
   const dispatch = useDispatch();
+
+  const closeModalHandler = () => dispatch(setStatusModal());
 
   return (
     <>
       {isOpen && (
         <DialogElement open className="absolute h-screen w-screen ">
-          <ModalElement className="z-20">
+          <div className="z-20">
             <Card searchText={searchText} className="absolute" />
-          </ModalElement>
-          <BackDropElement
-            className="w-full h-full z-10"
-            onClick={() => dispatch(setStatusModal())}
-          />
+          </div>
+          <BackDropElement className="w-full h-full z-10" onClick={closeModalHandler} />
         </DialogElement>
       )}
     </>
   );
 };
 
-const ModalElement = styled.div``;
 const BackDropElement = styled.div`
   background: #ccccccbd;
 `;

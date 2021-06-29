@@ -4,15 +4,14 @@ import { useDispatch } from "react-redux";
 
 import { setStatus } from "../../store/mode/modeSlice";
 
-interface IChangeModeProps {}
-
-const ChangeMode: React.FunctionComponent<IChangeModeProps> = (props) => {
+const ChangeMode: React.FunctionComponent = () => {
   const dispatch = useDispatch();
+  const onInputHandler = () => dispatch(setStatus());
 
   return (
     <div className="container mx-auto flex justify-end mt-4">
       <LabelElement>
-        <InputElement type="checkbox" onClick={() => dispatch(setStatus())} />
+        <InputElement type="checkbox" onClick={onInputHandler} />
         <Switch></Switch>
       </LabelElement>
     </div>
