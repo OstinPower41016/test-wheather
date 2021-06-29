@@ -1,24 +1,40 @@
 import * as React from "react";
+import styled from "styled-components";
 
+import preInstalled from "../../pre-installed.json";
 import Card from "./Card";
+import { useAppSelector } from "../../hooks/redux";
 
 interface IFavoriteCardsProps {}
 
 const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
-  const favoriteCities = new Set(Object.entries(localStorage).flat());
-  const [allFavoriteCities, setFavoriteCities] = React.useState();
+  const favoriteCities = useAppSelector((state) => state.modal.allFavoriteCities);
+  const [cities, setCities] = React.useState<JSX.Element[]>([]);
+  const mode = useAppSelector((state) => state.mode.mode);
 
   React.useEffect(() => {
-    if (favoriteCities.size !== 0) {
-      const citiesData = favoriteCities.forEach((city) => {
-        return <Card key={city} searchText={city} />;
-      });
-      setFavoriteCities(citiesData!);
-    }
-  }, [localStorage]);
-  console.log(allFavoriteCities);
+    const citiesArr = favoriteCities.trim().split(" ");
 
-  return <>{allFavoriteCities}</>;
+    if (citiesArr[0]) {
+      setCities(citiesArr.map((city) => <Card key={city} className="static" searchText={city} />));
+    }
+  }, [favoriteCities]);
+
+  return (
+    <div className="container mx-auto mt-6">
+      <Flex className="flex justify-around flex-wrap">
+        {mode === "Предустановленный"
+          ? preInstalled.map((city) => <Card searchText={city} />)
+          : cities}
+      </Flex>
+    </div>
+  );
 };
+
+const Flex = styled.div`
+  & > div {
+    margin-top: 2rem;
+  }
+`;
 
 export default FavoriteCards;

@@ -25,6 +25,7 @@ const Search: React.FunctionComponent<ISearchProps> = (props) => {
       <ButtonElement
         className="flex items-center py-2 px-4"
         onClick={() => dispatch(setStatusModal())}
+        disabled={inputValue.length <= 2}
       >
         <span className="mr-4">Поиск</span>
         <BiSearchAlt />
@@ -43,6 +44,11 @@ const ButtonElement = styled.button`
   background: #3c3cce;
   color: white;
   border-radius: 0 0.25rem 0.25rem 0;
+  transition: 0.3s;
+  &:disabled {
+    background: #b8b6c3;
+    color: black;
+  }
 `;
 const SearchElement = styled.div`
   border: 1px solid black;

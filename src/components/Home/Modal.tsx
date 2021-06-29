@@ -17,7 +17,7 @@ const Modal: React.FunctionComponent<IModalProps> = (props) => {
       {isOpen && (
         <DialogElement open className="absolute h-screen w-screen ">
           <ModalElement className="z-20">
-            <Card searchText={searchText} />
+            <Card searchText={searchText} className="absolute"/>
           </ModalElement>
           <BackDropElement
             className="w-full h-full z-10"
@@ -31,7 +31,7 @@ const Modal: React.FunctionComponent<IModalProps> = (props) => {
 
 const ModalElement = styled.div``;
 const BackDropElement = styled.div`
-  background: #cccccc8c;
+  background: #cccccccc;
 `;
 const DialogElement = styled.dialog`
   background: transparent;
