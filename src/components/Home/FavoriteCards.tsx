@@ -15,10 +15,13 @@ const FavoriteCards: React.FunctionComponent<IFavoriteCardsProps> = (props) => {
   React.useEffect(() => {
     const citiesArr = favoriteCities.trim().split(" ");
 
+
     if (citiesArr[0]) {
       setCities(citiesArr.map((city) => <Card key={city} className="static" searchText={city} />));
     }
   }, [favoriteCities]);
+
+  console.log(cities);
 
   return (
     <div className="container mx-auto mt-6">

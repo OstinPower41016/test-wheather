@@ -29,6 +29,7 @@ const modalSlice = createSlice({
       }
     },
     removeFavoriteCity: (state, action: PayloadAction<{ city: string }>) => {
+      console.log(action.payload.city);
       const citiesArr = state.allFavoriteCities.split(" ");
       const findToRemoveIndex = citiesArr.findIndex((val) => val === action.payload.city);
       citiesArr.splice(findToRemoveIndex, 1);

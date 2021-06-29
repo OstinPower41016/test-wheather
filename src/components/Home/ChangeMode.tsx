@@ -80,7 +80,6 @@ const Switch = styled.span`
     position: absolute;
     top: 1px;
     left: 1px;
-    z-index: 5;
     text-transform: uppercase;
     text-align: center;
     background: white;
