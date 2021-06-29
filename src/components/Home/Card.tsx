@@ -148,6 +148,10 @@ const CardElement = styled.div`
   left: 50%;
   transform: ${(props: TCardElement) => (props.isAbsolute ? "translate(-50%)" : "")};
   color: #0b0b0b;
+  @media (max-width: 600px) {
+    left: 50%;
+    min-width: 300px;
+  }
 `;
 
 const ButtonElement = styled.div`
