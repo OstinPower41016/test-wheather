@@ -6,6 +6,8 @@ import cn from "classnames";
 
 import { getWheather } from "../../api/weather";
 import { setStatusModal, addFavoriteCity, removeFavoriteCity } from "../../store/modal/modalSlice";
+import { setCashedCity } from "../../store/cashed/cashedSlice";
+import { useAppSelector } from "../../hooks/redux";
 
 interface ICardProps {
   searchText: string;
@@ -13,7 +15,7 @@ interface ICardProps {
   noClose?: boolean;
 }
 
-interface TCityWeather {
+export interface TCityWeather {
   name: string;
   temp: number;
   feels_like: number;
@@ -45,6 +47,8 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
   const dispatch = useDispatch();
   const [cityWeather, setCityWeather] = React.useState<TCityWeather>();
   const [statusError, setStatusError] = React.useState(false);
+  const [countUpdateFetchDate, setCountUpdateData] = React.useState();
+  const cityData = useAppSelector((state) => state.cashed);
 
   React.useEffect(() => {
     getWheather(props.searchText).then((res) => {

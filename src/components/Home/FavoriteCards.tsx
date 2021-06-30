@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
+
 import preInstalled from "../../pre-installed.json";
 import Card from "./Card";
 import { useAppSelector } from "../../hooks/redux";
@@ -9,6 +10,10 @@ const FavoriteCards: React.FunctionComponent = () => {
   const favoriteCities = useAppSelector((state) => state.modal.allFavoriteCities);
   const [cities, setCities] = React.useState<JSX.Element[]>([]);
   const mode = useAppSelector((state) => state.mode.mode);
+
+  const preInstalledCards = React.useMemo(() => {
+    return preInstalled.map((city) => <Card searchText={city} noClose key={city}/>)
+  }, [preInstalled])
 
   React.useEffect(() => {
     const citiesArr = favoriteCities.trim().split(" ");
@@ -20,9 +25,7 @@ const FavoriteCards: React.FunctionComponent = () => {
     }
   }, [favoriteCities]);
 
-  const preInstalledCards = preInstalled.map((city) => (
-    <Card searchText={city} noClose key={city} />
-  ));
+  
 
   return (
     <div className="container mx-auto mt-6">
