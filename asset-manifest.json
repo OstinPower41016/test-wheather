@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/test-wheather/static/css/main.3a2fca2e.chunk.css",
-    "main.js": "/test-wheather/static/js/main.14caabfc.chunk.js",
-    "main.js.map": "/test-wheather/static/js/main.14caabfc.chunk.js.map",
+    "main.css": "/test-wheather/static/css/main.5fa6487d.chunk.css",
+    "main.js": "/test-wheather/static/js/main.4f90d25c.chunk.js",
+    "main.js.map": "/test-wheather/static/js/main.4f90d25c.chunk.js.map",
     "runtime-main.js": "/test-wheather/static/js/runtime-main.e6b36d86.js",
     "runtime-main.js.map": "/test-wheather/static/js/runtime-main.e6b36d86.js.map",
-    "static/js/2.e4d9ec39.chunk.js": "/test-wheather/static/js/2.e4d9ec39.chunk.js",
-    "static/js/2.e4d9ec39.chunk.js.map": "/test-wheather/static/js/2.e4d9ec39.chunk.js.map",
+    "static/js/2.5486ed8d.chunk.js": "/test-wheather/static/js/2.5486ed8d.chunk.js",
+    "static/js/2.5486ed8d.chunk.js.map": "/test-wheather/static/js/2.5486ed8d.chunk.js.map",
     "index.html": "/test-wheather/index.html",
-    "static/css/main.3a2fca2e.chunk.css.map": "/test-wheather/static/css/main.3a2fca2e.chunk.css.map",
-    "static/js/2.e4d9ec39.chunk.js.LICENSE.txt": "/test-wheather/static/js/2.e4d9ec39.chunk.js.LICENSE.txt"
+    "static/css/main.5fa6487d.chunk.css.map": "/test-wheather/static/css/main.5fa6487d.chunk.css.map",
+    "static/js/2.5486ed8d.chunk.js.LICENSE.txt": "/test-wheather/static/js/2.5486ed8d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e6b36d86.js",
-    "static/js/2.e4d9ec39.chunk.js",
-    "static/css/main.3a2fca2e.chunk.css",
-    "static/js/main.14caabfc.chunk.js"
+    "static/js/2.5486ed8d.chunk.js",
+    "static/css/main.5fa6487d.chunk.css",
+    "static/js/main.4f90d25c.chunk.js"
   ]
 }
