@@ -3,13 +3,15 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 
 import { setStatus } from "../../store/mode/modeSlice";
+import RefreshButton from "./RefreshButton";
 
 const ChangeMode: React.FunctionComponent = () => {
   const dispatch = useDispatch();
   const onInputHandler = () => dispatch(setStatus());
 
   return (
-    <WrapperElement className="container mx-auto flex justify-end mt-4">
+    <WrapperElement className="container mx-auto flex justify-between items-center mt-4">
+      <CustomRefreshButton className="mr-4 " />
       <LabelElement>
         <InputElement type="checkbox" onClick={onInputHandler} />
         <Switch></Switch>
@@ -22,6 +24,17 @@ const WrapperElement = styled.div`
   @media (max-width: 768px) {
     justify-content: center;
   }
+  @media (max-width: 450px) {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+`;
+
+const CustomRefreshButton = styled(RefreshButton)`
+  @media (max-width: 450px) {
+    margin-top: 0.5rem;
+    order: 2;
+  }
 `;
 
 const LabelElement = styled.label`
@@ -33,6 +46,9 @@ const LabelElement = styled.label`
   vertical-align: middle;
   font-size: 14px;
   user-select: none;
+  @media (max-width: 450px) {
+    order: 1;
+  }
 `;
 
 const InputElement = styled.input`
