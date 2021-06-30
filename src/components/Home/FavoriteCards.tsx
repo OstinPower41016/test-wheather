@@ -1,7 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
 
-
 import preInstalled from "../../pre-installed.json";
 import Card from "./Card";
 import { useAppSelector } from "../../hooks/redux";
@@ -12,8 +11,8 @@ const FavoriteCards: React.FunctionComponent = () => {
   const mode = useAppSelector((state) => state.mode.mode);
 
   const preInstalledCards = React.useMemo(() => {
-    return preInstalled.map((city) => <Card searchText={city} noClose key={city}/>)
-  }, [preInstalled])
+    return preInstalled.map((city) => <Card searchText={city} noClose key={city} />);
+  }, [preInstalled]);
 
   React.useEffect(() => {
     const citiesArr = favoriteCities.trim().split(" ");
@@ -25,10 +24,8 @@ const FavoriteCards: React.FunctionComponent = () => {
     }
   }, [favoriteCities]);
 
-  
-
   return (
-    <div className="container mx-auto mt-6">
+    <WrapperCards className="container mx-auto mt-6">
       <Flex className="flex justify-around flex-wrap">
         {mode === "Предустановленный" ? (
           preInstalledCards
@@ -38,9 +35,15 @@ const FavoriteCards: React.FunctionComponent = () => {
           <NotFoundFavoriteDate>Избранных нет</NotFoundFavoriteDate>
         )}
       </Flex>
-    </div>
+    </WrapperCards>
   );
 };
+
+const WrapperCards = styled.div`
+  @media (max-width: 500px) {
+    margin-top: 0 !important;
+  }
+`;
 
 const Flex = styled.div`
   & > div {

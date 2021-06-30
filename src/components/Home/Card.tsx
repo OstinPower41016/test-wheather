@@ -6,7 +6,7 @@ import cn from "classnames";
 
 import { getWheather } from "../../api/weather";
 import { setStatusModal, addFavoriteCity, removeFavoriteCity } from "../../store/modal/modalSlice";
-import { setCashedCity } from "../../store/cashed/cashedSlice";
+import { setCashedCity, updateFavorite } from "../../store/cashed/cashedSlice";
 import { useAppSelector } from "../../hooks/redux";
 
 interface ICardProps {
@@ -45,17 +45,18 @@ const checkFavoriceCity = (city: string) => {
 
 const Card: React.FunctionComponent<ICardProps> = (props) => {
   const dispatch = useDispatch();
-  const [cityWeather, setCityWeather] = React.useState<TCityWeather>();
   const [statusError, setStatusError] = React.useState(false);
-  const [countUpdateFetchDate, setCountUpdateData] = React.useState();
   const cityData = useAppSelector((state) => state.cashed);
 
   React.useEffect(() => {
+    if (cityData[props.searchText] && cityData[props.searchText].statusUpdate === "") {
+      return;
+    }
     getWheather(props.searchText).then((res) => {
       if (!res) {
         setStatusError(true);
       } else {
-        setCityWeather({
+        const dataCity = {
           name: res.name,
           temp: Math.round(res.main.temp),
           feels_like: Math.round(res.main.feels_like),
@@ -63,10 +64,11 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
           iconURL: `http://openweathermap.org/img/w/${res.weather[0].icon}.png`,
           pressure: res.main.pressure,
           isFavorite: checkFavoriceCity(res.name),
-        });
+        };
+        dispatch(setCashedCity({ city: dataCity.name, dataCity }));
       }
     });
-  }, []);
+  }, [cityData]);
 
   const setFavoiteCity = (name: string) => {
     const currentFavoriteCities = localStorage
@@ -76,16 +78,10 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
       .find((city) => city === name);
     if (currentFavoriteCities) {
       dispatch(removeFavoriteCity({ city: name }));
-      setCityWeather({
-        ...cityWeather!,
-        isFavorite: false,
-      });
+      dispatch(updateFavorite({ city: name, isFavorite: false }));
     } else {
       dispatch(addFavoriteCity({ city: name }));
-      setCityWeather({
-        ...cityWeather!,
-        isFavorite: true,
-      });
+      dispatch(updateFavorite({ city: name, isFavorite: true }));
     }
   };
 
@@ -101,16 +97,20 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
           isAbsolute={props.className === "absolute"}
         >
           <div className="flex items-center justify-between">
-            <span className="mr-4">{cityWeather?.name}</span>
+            <span className="mr-4">{cityData[props.searchText]?.name}</span>
             <div className="flex items-center">
-              <img className="mr-2" src={cityWeather?.iconURL} alt={cityWeather?.description} />
-              <span className="text-xl font-bold">{cityWeather?.temp} &#8451;</span>
+              <img
+                className="mr-2"
+                src={cityData[props.searchText]?.iconURL}
+                alt={cityData[props.searchText]?.description}
+              />
+              <span className="text-xl font-bold">{cityData[props.searchText]?.temp} &#8451;</span>
             </div>
             <div className="flex">
               <ButtonElement
                 className="mr-2"
-                isFavorite={cityWeather?.isFavorite}
-                onClick={() => setFavoiteCity(cityWeather?.name!)}
+                isFavorite={cityData[props.searchText]?.isFavorite}
+                onClick={() => setFavoiteCity(cityData[props.searchText]?.name!)}
               >
                 <AiFillStar />
               </ButtonElement>
@@ -122,10 +122,10 @@ const Card: React.FunctionComponent<ICardProps> = (props) => {
             </div>
           </div>
           <p>
-            <strong>Ощущается как:</strong> {cityWeather?.feels_like} &#8451;
+            <strong>Ощущается как:</strong> {cityData[props.searchText]?.feels_like} &#8451;
           </p>
           <p>
-            <strong>Атмосферное давление:</strong> {cityWeather?.pressure} мбар
+            <strong>Атмосферное давление:</strong> {cityData[props.searchText]?.pressure} мбар
           </p>
         </CardElement>
       )}
